@@ -12,12 +12,12 @@
 
   <div class="task-title">
     <%= form.label :タスク名 %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, id: 'title_new' %>
   </div>
   　
   <div class="task-title">
   <%= form.label :タスク詳細 %>
-  <%= form.text_field :content %>
+  <%= form.text_field :content, id: 'content_new' %>
   </div>
 
   <div class="task-title">
@@ -40,7 +40,7 @@
     <%= form.text_field :author %>
   </div>
   
-  <%= form.submit %>
+  <%= form.submit "登録する" %>
 <% end %>
 
 <% link_to "タスク一覧画面に戻る", tasks_path %>
