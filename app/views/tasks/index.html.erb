@@ -9,7 +9,7 @@
    <th>優先順位</th>
    <th>作者</th>
   </tr>
-    <% @tasks.each do |task| %>
+    <% @tasks.each do |task|, id: '.task_row' %>
   <tr>
       <td><%= task.title %></td>
       <td><%= task.content %></td>
