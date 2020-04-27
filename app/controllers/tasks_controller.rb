@@ -25,7 +25,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.update(params[:id])
+    if @task.update(task_params)
       redirect_to tasks_path, notice: "タスクを更新しました！"
     else
       render :edit
