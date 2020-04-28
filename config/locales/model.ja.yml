@@ -7,6 +7,13 @@ ja:
       task:
         title: タイトル
         content: 内容
+        # task_title: タスク名
+        # task_content: タスク詳細
+        # dead_line: 終了期限
+        # condition: 状態
+        # author: 作者
+        # priority: 優先順位
+        # go_tasks_path: タスク一覧画面に戻る
       # user:
       #   title: タイトル
       #   name: 名前

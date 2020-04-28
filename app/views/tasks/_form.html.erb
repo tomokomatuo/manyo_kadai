@@ -11,37 +11,37 @@
   <% end %>
 
   <div class="task-title">
-    <%= form.label :タスク名 %>
+    <%= form.label t('view.task_title') %>
     <%= form.text_field :title, id: 'title_new' %>
   </div>
   　
   <div class="task-title">
-  <%= form.label :タスク詳細 %>
+  <%= form.label t('view.task_content') %>
   <%= form.text_field :content, id: 'content_new' %>
   </div>
 
   <div class="task-title">
-    <%= form.label :終了期限 %>
+    <%= form.label t('view.dead_line') %>
     <%= form.text_field :dead_line %>
   </div>
 
   <div class="task-title">
-    <%= form.label :状態 %>
+    <%= form.label t('view.condition') %>
     <%= form.text_field :condition %>
   </div>
 
   <div class="task-title">
-    <%= form.label :優先順位 %>
+    <%= form.label t('view.priority') %>
     <%= form.text_field :prioity %>
   </div>
 
   <div class="task-title">
-    <%= form.label :作者%>
+    <%= form.label t('view.author') %>
     <%= form.text_field :author %>
   </div>
   
-  <%= form.submit "登録する" %>
+  <%= form.submit button_text %>
 <% end %>
 
-<% link_to "タスク一覧画面に戻る", tasks_path %>
+<% link_to t('view.go_tasks_path'), tasks_path %>
 
