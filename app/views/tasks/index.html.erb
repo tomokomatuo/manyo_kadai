@@ -9,18 +9,18 @@
    <th>優先順位</th>
    <th>作者</th>
   </tr>
-    <% @tasks.each do |task| %>
-  <tr>
-      <td><%= task.title %></td>
+   <% @tasks.each do |task| %>
+    <tr>
+      <td class="title_row"><%= task.title %></td>
       <td><%= task.content %></td>
       <td><%= task.dead_line %></td>
       <td><%= task.condition %></td>
       <td><%= task.priority %></td>
       <td><%= task.author %></td>
-      <td><%= link_to t('view.show'), task_path(task.id), id: "show_link" %></td>
+      <td><%= link_to t('view.show'), task_path(task.id), class: "show_link" %></td>
       <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
       <td><%= link_to t('view.delete'), task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか?'} %></td>
-  </tr>
-    <% end %>  
-</table>
+    </tr>
+    <% end %> 
+　</table>
 <%= link_to t('view.go_new_task_path'), new_task_path %>
