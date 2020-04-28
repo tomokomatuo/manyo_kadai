@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+      # user: ユーザー
+    attributes:
+      task:
+        title: タイトル
+        content: 内容
+        # task_title: タスク名
+        # task_content: タスク詳細
+        # dead_line: 終了期限
+        # condition: 状態
+        # author: 作者
+        # priority: 優先順位
+        # go_tasks_path: タスク一覧画面に戻る
+      # user:
+      #   title: タイトル
+      #   name: 名前
+      #   email: メールアドレス
+      #   current_password: 現在のパスワード
+      #   password: パスワード
+      #   password_confirmation: 確認用パスワード
+      #   remember_me: ログインを記憶
