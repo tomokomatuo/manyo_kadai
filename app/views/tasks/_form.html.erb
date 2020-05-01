@@ -27,7 +27,7 @@
 
   <div class="task-title">
     <%= form.label t('view.condition') %>
-    <%= form.text_field :condition %>
+    <%= form.select :condition, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択して下さい" %>
   </div>
 
   <div class="task-title">

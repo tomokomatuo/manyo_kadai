@@ -5,12 +5,13 @@ class TasksController < ApplicationController
     # @tasks = Task.all.order(created_at: :desc)
     @tasks = Task.all
     # require 'task'
-    
+   
     if params[:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc)
     else
     @tasks
     end
+    @tasks = Task.search(params[:search])
   end
   
   def new
@@ -45,14 +46,23 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: t('view.delete_task')
   end
 
+  
+
   private
 
   def task_params
     params.require(:task).permit(:title, :content, :dead_line, :condition, 
-                                 :priority, :author, :sort_expired)
+                                 :priority, :author, :sort_expired, :search)
   end
 
   def set_task
     @task = Task.find(params[:id])
+  end
+  def search
+    if params[:search].present?
+      @tasks = Task.where('title LIKE ?', "%#{search}%")
+    else
+      @tasks = Task.none
+    end
   end
 end

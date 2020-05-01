@@ -1,0 +1,19 @@
+<h1>Task search</h1>
+# <%= form_with url: search_tasks_path, method: :get, local: true do |f| %>
+#   <%= f.text_field :title %>
+#   <%= f.submit :search %>
+# <% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
