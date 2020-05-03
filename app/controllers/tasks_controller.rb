@@ -11,7 +11,17 @@ class TasksController < ApplicationController
     else
     @tasks
     end
-    @tasks = Task.search(params[:search])
+   
+    if params[:task][:search].present?
+     
+      if params[:task][:title].present? && params[:task][:condition].present?
+        @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%").joins(condition: params[:task][:condition])
+      elsif params[:task][:title].present?
+        @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%")
+      elsif params[:task][:condition].present?
+        @tasks = Task.where(condition: params[:task][:condition])
+      end
+    end
   end
   
   def new
@@ -59,10 +69,13 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
   def search
-    if params[:search].present?
-      @tasks = Task.where('title LIKE ?', "%#{search}%")
-    else
-      @tasks = Task.none
-    end
+    # if params[:search].present?
+    #   if params[:search] == params[:title] && params[:condition]
+    #   elsif params[:search] == params[:title]
+    #     @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+    #   elsif params[:search] == params[:condition]
+    #     @tasks = Task.where(condition: params[:condition])
+    #   end
+    # end
   end
 end
