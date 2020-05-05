@@ -7,7 +7,7 @@ class TasksController < ApplicationController
     @tasks = Task.all
     # require 'task'
   #  binding.irb
-    if params[:task].present? && params[:task][:sort_expired].present?
+    if params[:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc)
     else
     @tasks
