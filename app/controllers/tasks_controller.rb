@@ -2,25 +2,30 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
   
   def index
+    # binding.irb
     # @tasks = Task.all.order(created_at: :desc)
     @tasks = Task.all
     # require 'task'
-   
-    if params[:sort_expired].present?
+  #  binding.irb
+    if params[:task].present? && params[:task][:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc)
     else
     @tasks
     end
-   
-    if params[:task][:search].present?
-     
+    # binding.irb
+    if params[:task].present? && params[:task][:search].present?
+      # binding.irb
       if params[:task][:title].present? && params[:task][:condition].present?
-        @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%").joins(condition: params[:task][:condition])
+        @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%").where(condition: params[:task][:condition])
+        # binding.irb
       elsif params[:task][:title].present?
+       
         @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%")
+       
       elsif params[:task][:condition].present?
         @tasks = Task.where(condition: params[:task][:condition])
       end
+      # binding.irb
     end
   end
   
