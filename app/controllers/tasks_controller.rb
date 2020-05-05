@@ -16,14 +16,14 @@ class TasksController < ApplicationController
     if params[:task].present? && params[:task][:search].present?
       # binding.irb
       if params[:task][:title].present? && params[:task][:condition].present?
-        @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%").where(condition: params[:task][:condition])
+        @tasks = Task.both_search(params[:task][:title],params[:task][:condition])
         # binding.irb
       elsif params[:task][:title].present?
        
-        @tasks = Task.where('title LIKE ?', "%#{params[:task][:title]}%")
+        @tasks = Task.title_search(params[:task][:title])
        
       elsif params[:task][:condition].present?
-        @tasks = Task.where(condition: params[:task][:condition])
+        @tasks = Task.condition_search(params[:task][:condition])
       end
       # binding.irb
     end
