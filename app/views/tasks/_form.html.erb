@@ -32,7 +32,7 @@
 
   <div class="task-title">
     <%= form.label t('view.priority') %>
-    <%= form.text_field :prioity %>
+    <%= form.select :priority, Task.priorities.keys.to_a, include_blank: true %>
   </div>
 
   <div class="task-title">
