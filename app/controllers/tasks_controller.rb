@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
-  
+  PER = 8
   def index
-    @tasks = Task.all
+    # @tasks = Task.all
+    @tasks = Task.page(params[:page]).per(PER)
     if params[:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc)
     else
@@ -64,7 +65,7 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :dead_line, :condition, 
-                                 :priority, :author, :sort_expired, :search, :sort_priority)
+                                 :priority, :author, :sort_expired, :search, :sort_priority, :page)
   end
 
   def set_task
