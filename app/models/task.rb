@@ -1,7 +1,9 @@
 class Task < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
-  
+  validates :dead_line, presence: true
+  validates :condition, presence: true
+  validates :priority, presence: true
   
   scope :title_search, -> (search){where('title LIKE ?', "%#{search}%")}
   scope :condition_search, -> (search){where(condition: search)}
