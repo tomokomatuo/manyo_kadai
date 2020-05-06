@@ -31,7 +31,7 @@
       <td><%= task.content %></td>
       <td class="date_row"><%= task.dead_line %></td>
       <td><%= task.condition %></td>
-      <td><%= task.priority %></td>
+      <td class="priority_row"><%= task.priority %></td>
       <td><%= task.author %></td>
       <td><%= link_to t('view.show'), task_path(task.id), class: "show_link" %></td>
       <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>

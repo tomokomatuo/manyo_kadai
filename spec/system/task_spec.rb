@@ -8,8 +8,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
     @date = Date.new(2019, 9, 29)
     @second_date = Date.new(2019, 10, 10)
-    FactoryBot.create(:task, dead_line: @date)
-    FactoryBot.create(:second_task, dead_line: @second_date)
+    PRIORITIES = ['高', '低']
+    FactoryBot.create(:task, dead_line: @date, priority: PRIORITIES[1])
+    FactoryBot.create(:second_task, dead_line: @second_date, priority: PRIORITIES[0])
   end
   # describe 'タスク一覧画面' do
   #   context 'タスクを作成した場合' do
@@ -90,6 +91,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_list = all('.date_row')
         expect(task_list[0]).to have_content @second_date
         expect(task_list[1]).to have_content @date
+      end
+    end
+    context '優先順位の高い順にソートする場合' do
+      it '優先順位が降順で表示される' do
+        visit tasks_path
+        sleep(5)
+        click_on 'sort_priority'
+        task_list = all('.priority_row')
+        expect(task_list[0]).to have_content '高'
+        expect(task_list[1]).to have_content '低'
       end
     end
   end
