@@ -7,7 +7,9 @@ ja:
     author: 作者
     priority: 優先順位
     go_tasks_path: タスク一覧画面に戻る
-    go_new_task_path: 新しくタスクを投稿する
+    go_new_task_path: タスクを登録する
+    go_sort_expired: タスクを終了期限順に並び替える
+    go_sort_priority: タスクを優先順位順に並び替える
     show: 詳細
     edit: 編集
     delete: 削除
