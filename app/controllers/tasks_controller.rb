@@ -2,30 +2,27 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
   
   def index
-    # binding.irb
-    # @tasks = Task.all.order(created_at: :desc)
     @tasks = Task.all
-    # require 'task'
-  #  binding.irb
     if params[:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc)
     else
     @tasks
     end
-    # binding.irb
+
+    if params[:sort_priority].present?
+      @tasks = @tasks.order(priority: :asc)
+      else
+      @tasks
+      end
+    
     if params[:task].present? && params[:task][:search].present?
-      # binding.irb
       if params[:task][:title].present? && params[:task][:condition].present?
         @tasks = Task.both_search(params[:task][:title],params[:task][:condition])
-        # binding.irb
       elsif params[:task][:title].present?
-       
         @tasks = Task.title_search(params[:task][:title])
-       
       elsif params[:task][:condition].present?
         @tasks = Task.condition_search(params[:task][:condition])
       end
-      # binding.irb
     end
   end
   
@@ -67,20 +64,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :dead_line, :condition, 
-                                 :priority, :author, :sort_expired, :search)
+                                 :priority, :author, :sort_expired, :search, :sort_priority)
   end
 
   def set_task
     @task = Task.find(params[:id])
-  end
-  def search
-    # if params[:search].present?
-    #   if params[:search] == params[:title] && params[:condition]
-    #   elsif params[:search] == params[:title]
-    #     @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
-    #   elsif params[:search] == params[:condition]
-    #     @tasks = Task.where(condition: params[:condition])
-    #   end
-    # end
   end
 end
