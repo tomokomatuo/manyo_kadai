@@ -14,5 +14,6 @@ class Task < ApplicationRecord
     中: 1, 
     低: 2, 
   }
+  paginates_per 50
 end
  

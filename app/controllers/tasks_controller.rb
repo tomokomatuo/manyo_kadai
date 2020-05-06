@@ -1,28 +1,27 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
-  PER = 8
   def index
     # @tasks = Task.all
-    @tasks = Task.page(params[:page]).per(PER)
+    @tasks = Task.page(params[:page]).per(3)
     if params[:sort_expired].present?
-    @tasks = @tasks.order(dead_line: :desc)
+    @tasks = @tasks.order(dead_line: :desc).page(params[:page]).per(3)
     else
     @tasks
     end
 
     if params[:sort_priority].present?
-      @tasks = @tasks.order(priority: :asc)
+      @tasks = @tasks.order(priority: :asc).page(params[:page]).per(3)
       else
       @tasks
       end
     
     if params[:task].present? && params[:task][:search].present?
       if params[:task][:title].present? && params[:task][:condition].present?
-        @tasks = Task.both_search(params[:task][:title],params[:task][:condition])
+        @tasks = Task.both_search(params[:task][:title],params[:task][:condition]).page(params[:page]).per(3)
       elsif params[:task][:title].present?
-        @tasks = Task.title_search(params[:task][:title])
+        @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(3)
       elsif params[:task][:condition].present?
-        @tasks = Task.condition_search(params[:task][:condition])
+        @tasks = Task.condition_search(params[:task][:condition]).page(params[:page]).per(3)
       end
     end
   end

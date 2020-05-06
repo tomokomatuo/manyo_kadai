@@ -9,8 +9,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     @date = Date.new(2019, 9, 29)
     @second_date = Date.new(2019, 10, 10)
     PRIORITIES = ['高', '低']
-    FactoryBot.create(:task, dead_line: @date, priority: PRIORITIES[1])
-    FactoryBot.create(:second_task, dead_line: @second_date, priority: PRIORITIES[0])
+    FactoryBot.create(:task, dead_line: @date, priority: PRIORITIES[1], condition: '完了')
+    FactoryBot.create(:second_task, dead_line: @second_date, priority: PRIORITIES[0], condition: '未着手')
   end
   # describe 'タスク一覧画面' do
   #   context 'タスクを作成した場合' do
@@ -26,7 +26,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'title_new', with: 'task'
         fill_in 'content_new', with: 'content'
         fill_in 'date_new', with: @date
+        select('未着手', :from => 'task_condition')
+        select('高', :from => 'task_priority')
         click_on '登録する'
+        save_and_open_page
         expect(page).to have_content @date
       end
     end
@@ -43,8 +46,13 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク一覧画面' do
     context '検索をした場合' do
       before do
-        FactoryBot.create(:task, title: "task", condition: "未着手")
-        FactoryBot.create(:second_task, title: "second_title", condition: "完了")
+        @date = Date.new(2019, 9, 29)
+        @second_date = Date.new(2019, 10, 10)
+        PRIORITIES = ['高', '中']
+        @priority = PRIORITIES[0]
+        @second_priority = PRIORITIES[1]
+        FactoryBot.create(:task, title: "task", dead_line: @date, priority: @priority, condition: "未着手")
+        FactoryBot.create(:second_task, title: "second_title", dead_line: @second_date, priority: 0, condition: "完了")
       end
       it "タイトルで検索できる" do
         visit tasks_path
@@ -87,6 +95,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '終了期限順にソートする場合' do
       it '日時が降順で表示される' do
         visit tasks_path
+        sleep(5)
         click_on 'sort'
         task_list = all('.date_row')
         expect(task_list[0]).to have_content @second_date
