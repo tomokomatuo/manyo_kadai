@@ -1,7 +1,7 @@
 <%= form_with(model: @task, local: true) do |form| %>
   <% if @task.errors.any? %>
     <div id="error_explanation">
-    <h2><%= @task.erors.count %>件のエラーがあります</h2>
+    <h2><%= @task.errors.count %>件のエラーがあります</h2>
     <ul>
       <% @task.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -22,17 +22,17 @@
 
   <div class="task-title">
     <%= form.label t('view.dead_line') %>
-    <%= form.text_field :dead_line %>
+    <%= form.text_field :dead_line, data:{ provide:'datepicker' }, id: 'date_new' %>
   </div>
 
   <div class="task-title">
     <%= form.label t('view.condition') %>
-    <%= form.text_field :condition %>
+    <%= form.select :condition, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択して下さい" %>
   </div>
 
   <div class="task-title">
     <%= form.label t('view.priority') %>
-    <%= form.text_field :prioity %>
+    <%= form.select :priority, Task.priorities.keys.to_a, include_blank: true %>
   </div>
 
   <div class="task-title">
