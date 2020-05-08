@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
   
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
     unless logged_in?
       redirect_to new_session_path
     end
