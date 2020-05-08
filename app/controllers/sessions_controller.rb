@@ -10,10 +10,10 @@ class SessionsController < ApplicationController
       flash.now[:danger] = 't(view.login_fail)'
       render :new
     end
-    def destroy
-      session.delete(:user_id)
-      flash[:notice] = 't(view.logged_out)'
-      redirect_to new_session_path
-    end
+  end
+  def destroy
+    session.delete(:user_id)
+    flash[:notice] = 't(view.logged_out)'
+    redirect_to new_session_path
   end
 end

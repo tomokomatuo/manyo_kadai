@@ -3,6 +3,9 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.all.order(created_at: :desc)
+    unless logged_in?
+      redirect_to new_session_path
+    end
   end
   
   def new
