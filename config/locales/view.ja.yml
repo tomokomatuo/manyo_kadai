@@ -14,3 +14,5 @@ ja:
     create_task: タスクを作成しました！
     update_task: タスクを更新しました！
     delete_task: タスクを削除しました！
+    login_fail: ログインに失敗しました
+    logged_out: ログアウトしました
