@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @tasks = current_user.tasks.order(created_at: :desc)
     if logged_in?
      if current_user.id != @user.id
        redirect_to tasks_path
