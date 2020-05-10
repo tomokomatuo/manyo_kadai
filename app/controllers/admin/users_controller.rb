@@ -39,12 +39,16 @@ class Admin::UsersController < ApplicationController
 
   private
   def admin_user
-    redirect_to(root_path) unless current_user.admin?
+    unless current_user.admin?
+      flash[:notice] = "あなたは管理者ではありません"
+      redirect_to tasks_path
+      
+    end
   end
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                        :password_confirmation)
+                                        :password_confirmation, :admin)
   end
 
   def set_user
