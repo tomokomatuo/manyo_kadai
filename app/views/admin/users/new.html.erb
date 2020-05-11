@@ -1,15 +1,15 @@
 <h1>ユーザー登録画面</h1>
 <%= form_with(model: [:admin, @user], local: true) do |f| %>
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, id: "user_name" %>
     <%= f.label :email %>
-    <%= f.email_field :email %>
+    <%= f.email_field :email, id: "user_email" %>
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, id: "user_password" %>
     <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, id: "user_password_confirmation" %>
     <%= f.label :管理者にする %>
     <%= f.check_box :admin %>
-    <%= f.submit %>
+    <p name="commit"><%= f.submit %></p>
   <% end %>
   <%= link_to 'ユーザー管理画面に戻る', admin_users_path %>

@@ -1,11 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
-  
+  before_action :check_logged_in, only: [:index]
   def index
     @tasks = current_user.tasks.includes(:user).order(created_at: :desc)
-    unless logged_in?
-      redirect_to new_session_path
-    end
+    
   end
   
   def new
@@ -48,6 +46,12 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def check_logged_in
+    unless logged_in?
+      redirect_to new_session_path
+    end
   end
 
 end

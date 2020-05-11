@@ -1,8 +1,8 @@
 <h1><%= @user.name %>のページ</h1>
 <p>メールアドレス: <%= @user.email %></p>
 <% if logged_in? && current_user.admin? %>
-  <% if current_user == @user || current_user.admin? %>
-    <%= link_to "管理者登録画面へ", new_admin_user_path(@user.id) %>
+  <% if current_user.admin? %>
+    <%= link_to "管理者登録画面へ", admin_user_path(@user.id), id: "admin_access" %>
   <% end %>
 <% end %>
 <table>

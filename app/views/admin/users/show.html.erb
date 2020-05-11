@@ -2,3 +2,5 @@
 <p>名前:<%= @user.name %></p>
 <p>メールアドレス:<%= @user.email %></p>
 <p>タスク数:<%= @user.tasks.count %></p>
+<%= link_to "ユーザー登録画面へ", new_admin_user_path(@user.id) %>
+<%= link_to "ユーザー一覧画面へ", admin_users_path(@user.id), id: "back" %>
