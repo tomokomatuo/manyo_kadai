@@ -12,6 +12,10 @@ RSpec.describe 'タスク管理機能', type: :system do
     FactoryBot.create(:user)
     FactoryBot.create(:task, user: user, dead_line: @date, priority: PRIORITIES[1], condition: '完了')
     FactoryBot.create(:second_task, dead_line: @second_date, priority: PRIORITIES[0], condition: '未着手')
+    visit new_session_path
+    fill_in 'session_email', with: 'sample@example.com'
+    fill_in 'session_password', with: '00000000'
+    click_on 'commit_new'
   end
   # describe 'タスク一覧画面' do
   #   context 'タスクを作成した場合' do

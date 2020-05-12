@@ -83,7 +83,8 @@ RSpec.describe 'ユーザ登録・ログイン・ログアウト機能', type: :
             fill_in 'session_email', with: 'sample@example.com'
             fill_in 'session_password', with: '00000000'
             click_on 'commit_new'
-            visit 'admin/users'
+            # visit admin_user_path(@user)
+            visit admin_users_path
             expect(current_path).to eq tasks_path
         end
       end

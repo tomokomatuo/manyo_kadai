@@ -9,7 +9,7 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, id: "password_confirmation_value" %>
     <%= f.label :管理者にする %>
-    <%= f.check_box :admin %>
+    <%= f.check_box :admin, {:checked => false} %>
     <p name="commit"><%= f.submit %></p>
   <% end %>
   <%= link_to 'ユーザー管理画面に戻る', admin_users_path %>

@@ -4,6 +4,7 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
+    # @user.admin = false
   end
 
   def create
@@ -24,6 +25,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+     
       redirect_to admin_users_path, notice: t('view.update_task')
     else
       render :edit
