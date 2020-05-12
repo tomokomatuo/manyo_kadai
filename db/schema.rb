@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2020_05_08_092919) do
 
   # These are extensions that must be enabled in order to support this database
@@ -18,9 +19,11 @@ ActiveRecord::Schema.define(version: 2020_05_08_092919) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.string "dead_line"
+
+    t.date "dead_line"
+
     t.string "condition"
-    t.string "priority"
+    t.integer "priority"
     t.string "author"
     t.bigint "user_id"
     t.datetime "created_at", null: false

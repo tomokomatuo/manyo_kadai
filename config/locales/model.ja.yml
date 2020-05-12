@@ -5,8 +5,11 @@ ja:
       # user: ユーザー
     attributes:
       task:
-        title: タイトル
-        content: 内容
+        title: タスク名
+        content: タスク詳細
+        condition: 状態
+        priority: 優先順位
+        dead_line: 終了期限
         # task_title: タスク名
         # task_content: タスク詳細
         # dead_line: 終了期限

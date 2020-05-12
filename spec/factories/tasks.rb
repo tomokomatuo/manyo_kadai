@@ -4,7 +4,7 @@ FactoryBot.define do
   #   content { 'test_content' }  
   # end
   factory :task do
-    title { 'title' }
+    title { 'task' }
     content { 'content' }
     user
   end

@@ -3,7 +3,28 @@ class TasksController < ApplicationController
   before_action :check_logged_in, only: [:index]
   def index
     @tasks = current_user.tasks.includes(:user).order(created_at: :desc)
+    @tasks = Task.page(params[:page]).per(3)
+    if params[:sort_expired].present?
+    @tasks = @tasks.order(dead_line: :desc).page(params[:page]).per(3)
+    else
+    @tasks
+    end
+
+    if params[:sort_priority].present?
+      @tasks = @tasks.order(priority: :asc).page(params[:page]).per(3)
+      else
+      @tasks
+      end
     
+    if params[:task].present? && params[:task][:search].present?
+      if params[:task][:title].present? && params[:task][:condition].present?
+        @tasks = Task.both_search(params[:task][:title],params[:task][:condition]).page(params[:page]).per(3)
+      elsif params[:task][:title].present?
+        @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(3)
+      elsif params[:task][:condition].present?
+        @tasks = Task.condition_search(params[:task][:condition]).page(params[:page]).per(3)
+      end
+    end
   end
   
   def new
@@ -38,10 +59,13 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: t('view.delete_task')
   end
 
+  
+
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :dead_line, :condition, :priority, :author)
+    params.require(:task).permit(:title, :content, :dead_line, :condition, 
+                                 :priority, :author, :sort_expired, :search, :sort_priority, :page)
   end
 
   def set_task
@@ -53,5 +77,4 @@ class TasksController < ApplicationController
       redirect_to new_session_path
     end
   end
-
 end
