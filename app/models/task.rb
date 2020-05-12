@@ -10,10 +10,6 @@ class Task < ApplicationRecord
   scope :condition_search, -> (search){where(condition: search)}
   scope :both_search, ->(search, second_search) { where('title LIKE ?', "%#{search}%").where(condition: second_search)}
   
-  enum priority:{
-    高: 0, 
-    中: 1, 
-    低: 2, 
-  }
+  enum priority: { 高: 1, 中: 2, 低: 3 }
 end
  
