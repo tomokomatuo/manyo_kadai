@@ -5,8 +5,9 @@ RSpec.describe 'タスク管理機能', type: :model do
     before do
       @date = Date.new(2019, 9, 29)
       @second_date = Date.new(2019, 10, 10)
-      Task.create(title: "task", content: "sample_task", condition:"未着手", dead_line: @date, priority: "高")
-      Task.create(title: "sample", content: "sample_sample", condition:"完了", dead_line: @second_date, priority: "低")
+      @user = Factroybot.new(:user)
+      Task.create(:task, user: @user, title: "task", content: "sample_task", condition:"未着手", dead_line: @date, priority: "高")
+      Task.create(:second_task, user: @user, title: "sample", content: "sample_sample", condition:"完了", dead_line: @second_date, priority: "低")
     end
     it "scopeメソッドでタイトル検索ができる" do
       expect(Task.title_search('task').count).to eq 1
