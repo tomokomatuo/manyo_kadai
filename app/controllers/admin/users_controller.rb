@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  include SessionsHelper
     before_action :admin_user
     before_action :set_user, only: [:show, :edit, :destroy, :update]
 
@@ -18,6 +19,12 @@ class Admin::UsersController < ApplicationController
     
   end
   def show
+    @tasks = set_user.tasks.order(created_at: :desc)
+    # if logged_in?
+    #  if current_user.id != @user.id
+    #    redirect_to tasks_path
+    #  end
+    # end
   end
   
   def edit
@@ -46,7 +53,6 @@ class Admin::UsersController < ApplicationController
     unless current_user.admin?
       flash[:notice] = "あなたは管理者ではありません"
       redirect_to tasks_path
-      
     end
   end
 
