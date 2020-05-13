@@ -94,4 +94,17 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+  describe 'タスク管理機能' do
+    context 'scopeメソッドで検索をした場合' do
+      it "scopeメソッドでタイトル検索ができる" do
+        expect(Task.title_search('task').count).to eq 1
+      end
+      it "scopeメソッドでステータス検索ができる" do
+        expect(Task.condition_search('未着手').count).to eq 1
+      end
+      it "scopeメソッドでタイトルとステータスの両方が検索できる" do
+        expect(Task.both_search('task','完了').count).to eq 1
+      end
+    end
+  end
 end
