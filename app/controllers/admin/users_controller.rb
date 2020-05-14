@@ -50,7 +50,9 @@ class Admin::UsersController < ApplicationController
 
   private
   def admin_user
-    unless current_user.admin?
+    if current_user.nil?
+      redirect_to new_session_path
+    elsif current_user.admin? == false
       flash[:notice] = "あなたは管理者ではありません"
       redirect_to tasks_path
     end
