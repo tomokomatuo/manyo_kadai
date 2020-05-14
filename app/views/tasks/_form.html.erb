@@ -22,7 +22,7 @@
 
   <div class="task-title">
     <%= form.label t('view.dead_line') %>
-    <%= form.text_field :dead_line, data:{ provide:'datepicker' }, id: 'date_new' %>
+    <%= form.date_select :dead_line, {}, class: 'form-control', id: 'date_new' %>
   </div>
 
   <div class="task-title">

@@ -18,11 +18,11 @@
       <td><%= task.condition %></td>
       <td><%= task.priority %></td>
       <td><%= task.author %></td>
-      <td><%= link_to t('view.show'), task_path(task.id), class: "show_link" %></td>
-      <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
-      <td><%= link_to t('view.delete'), task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか?'} %></td>
   </tr>
     <% end %> 
 </table>
+<% if @user.admin? %>
+<%= link_to "管理者です。編集しますか？", edit_admin_user_path(@user.id) %>
+<% end %>
 <%= link_to "ユーザー登録画面へ", new_admin_user_path(@user.id) %>
 <%= link_to "ユーザー一覧画面へ", admin_users_path, id: "back" %>
