@@ -2,7 +2,7 @@ ja:
   activerecord:
     models:
       task: タスク
-      # user: ユーザー
+      user: ユーザー
     attributes:
       task:
         title: タスク名
@@ -17,11 +17,10 @@ ja:
         # author: 作者
         # priority: 優先順位
         # go_tasks_path: タスク一覧画面に戻る
-      # user:
-      #   title: タイトル
-      #   name: 名前
-      #   email: メールアドレス
-      #   current_password: 現在のパスワード
-      #   password: パスワード
-      #   password_confirmation: 確認用パスワード
-      #   remember_me: ログインを記憶
+      user:
+        name: 名前
+        email: メールアドレス
+        current_password: 現在のパスワード
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: ログインを記憶

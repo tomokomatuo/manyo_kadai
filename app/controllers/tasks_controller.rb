@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :destroy, :update]
+  before_action :check_logged_in
   def index
-    # @tasks = Task.all
-    @tasks = Task.page(params[:page]).per(3)
+    @tasks = current_user.tasks.includes(:user).page(params[:page]).per(3)
+    # .order(created_at: :desc)
     if params[:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc).page(params[:page]).per(3)
     else
@@ -17,7 +18,7 @@ class TasksController < ApplicationController
     
     if params[:task].present? && params[:task][:search].present?
       if params[:task][:title].present? && params[:task][:condition].present?
-        @tasks = Task.both_search(params[:task][:title],params[:task][:condition]).page(params[:page]).per(3)
+        @tasks = Task.both_search(params[:task][:title], params[:task][:condition]).page(params[:page]).per(3)
       elsif params[:task][:title].present?
         @tasks = Task.title_search(params[:task][:title]).page(params[:page]).per(3)
       elsif params[:task][:condition].present?
@@ -31,7 +32,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+
     if @task.save
       redirect_to tasks_path, notice: t('view.create_task')
     else
@@ -69,5 +71,11 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def check_logged_in
+    unless logged_in?
+      redirect_to new_session_path
+    end
   end
 end

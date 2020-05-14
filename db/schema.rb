@@ -10,20 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_015800) do
+ActiveRecord::Schema.define(version: 2020_05_13_095012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "tasks", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.date "dead_line"
+    t.string "title", null: false
+    t.text "content", null: false
+    t.date "dead_line", default: -> { "now()" }, null: false
     t.string "condition"
     t.integer "priority"
     t.string "author"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["title", "condition", "dead_line"], name: "index_tasks_on_title_and_condition_and_dead_line"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.boolean "admin", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "tasks", "users"
 end

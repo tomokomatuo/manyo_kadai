@@ -16,4 +16,4 @@ ja:
     create_task: タスクを作成しました！
     update_task: タスクを更新しました！
     delete_task: タスクを削除しました！
-   
+    delete_user: ユーザーを削除しました！
