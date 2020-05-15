@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'date'
+
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     @date = Date.new(2019, 9, 29)
@@ -14,7 +14,6 @@ RSpec.describe 'タスク管理機能', type: :system do
     fill_in 'session_password', with: '00000000'
     click_on 'commit_new'
     visit tasks_path
-
   end
   # describe 'タスク一覧画面' do
   #   context 'タスクを作成した場合' do
@@ -36,17 +35,32 @@ RSpec.describe 'タスク管理機能', type: :system do
         save_and_open_page
         expect(page).to have_content @date
       end
+      it 'ラベル機能が保存される' do
+        visit new_task_path
+        fill_in 'title_new', with: 'task'
+        fill_in 'content_new', with: 'content'
+        fill_in 'date_new', with: @date
+        select('未着手', :from => 'task_condition')
+        select('高', :from => 'task_priority')
+        check 'sample0'
+        click_on '登録する'
+        save_and_open_page
+        expect(page).to have_content 'sample0'
+      end
     end
   end
-  # describe 'タスク詳細画面' do
-  #    context '任意のタスク詳細画面に遷移した場合' do
-  #      it '該当タスクの内容が表示されたページに遷移する' do
-  #       visit tasks_path
-  #       click_on "show_link"
-  #       expect(page).to have_content 'test_content'
-  #      end
-  #    end
-  # end
+  describe 'タスク詳細画面' do
+     context '任意のタスク詳細画面に遷移した場合' do
+       it '該当タスクの内容が表示されたページに遷移する' do
+        click_on "show_link"
+        expect(page).to have_content 'test_content'
+       end
+       it 'タスクに紐づいたラベルが表示される' do
+        click_on "show_link"
+        expect(page).to have_content 'sample0'
+       end
+     end
+  end
   describe 'タスク一覧画面' do
      context '検索をした場合' do
       it "タイトルで検索できる" do
@@ -107,4 +121,5 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+  
 end

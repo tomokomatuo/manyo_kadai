@@ -35,13 +35,14 @@
     <%= form.select :priority, Task.priorities.keys.to_a, include_blank: true %>
   </div>
 
-  <div class="task-title">
-    <%= form.label t('view.author') %>
-    <%= form.text_field :author %>
+  <div class="field">
+    <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
   </div>
-  
+
   <%= form.submit button_text %>
 <% end %>
 
+
 <% link_to t('view.go_tasks_path'), tasks_path %>
+<%= link_to "新しくラベルを作成する", new_label_path %>
 

@@ -25,7 +25,6 @@
    <th scope="col">終了期限</th>
    <th scope="col">状態</th>
    <th scope="col">優先順位</th>
-   <th scope="col">作者</th>
   </tr>
     
    <% @tasks.each do |task| %>
@@ -36,14 +35,24 @@
       <td class="date_row"><%= task.dead_line %></td>
       <td><%= task.condition %></td>
       <td class="priority_row"><%= task.priority %></td>
-      <td><%= task.author %></td>
+      
       <td><span class="label label-primary"><%= link_to t('view.show'), task_path(task.id), class: "show_link letter" %></span></td>
       <td><span class="label label-success"><%= link_to t('view.edit'), edit_task_path(task.id), class: "letter" %></span></td>
       <td><span class="label label-danger"><%= link_to t('view.delete'), task_path(task.id), method: :delete, data: { confirm: '本当に削除していいですか?'}, class: "letter" %></span></td>
+      <td>
+      <% task.labels.each do |label| %>
+        <%= label.name %>
+      <% end %>
+      </td>
   </tr>
     <% end %> 
 </table>
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+  <%= form.submit 'Search', name: nil %>
+<% end %>
 <%= paginate @tasks %>
 <%= link_to t('view.go_new_task_path'), new_task_path %>
 <%= link_to t('view.go_sort_expired'), tasks_path(sort_expired: "true"), id: 'sort' %>
 <%= link_to t('view.go_sort_priority'), tasks_path(sort_priority: "true"), id: 'sort_priority' %>
+<%= link_to "新しくラベルを作成する", new_label_path %>
