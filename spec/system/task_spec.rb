@@ -1,27 +1,34 @@
 require 'rails_helper'
+# require 'spec_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     @date = Date.new(2019, 9, 29)
     @second_date = Date.new(2019, 10, 10)
-    
-    
+    # @label = FactoryBot.create(:label)
+    # @second_label = FactoryBot.create(:second_label)
     @user = FactoryBot.create(:user)
+      # @second_user = FactoryBot.create(:second_user)
     @task = FactoryBot.create(:task, user: @user, dead_line: @date, priority: '低', condition: '完了')
-    @second_task = FactoryBot.create(:second_task, user: @user, dead_line: @second_date, priority: '高', condition: '未着手')
+    # @second_task = FactoryBot.create(:second_task, user: @user, dead_line: @second_date, priority: '高', condition: '未着手')
+    # @labelling = FactoryBot.create(:labelling, task: @task, label: @label)
+    
     visit new_session_path
+    expect(page).to have_content "Log in"
     fill_in 'session_email', with: 'sample@example.com'
     fill_in 'session_password', with: '00000000'
     click_on 'commit_new'
-    visit tasks_path
+    expect(page).to have_content "#{@user.name}のページ"
+   end
+  
+  describe 'タスク一覧画面' do
+    context 'タスクを作成した場合' do
+      it '作成済みのタスクが表示される' do
+      visit tasks_path
+      expect(page).to have_content 'task'
+      end
+    end
   end
-  # describe 'タスク一覧画面' do
-  #   context 'タスクを作成した場合' do
-  #     it '作成済みのタスクが表示される' do
-  #     visit tasks_path
-  #     expect(page).to have_content 'task'
-  #     end
-  #   end
   describe 'タスク登録画面' do
     context '必要項目を入力して、createボタンを押した場合' do
       it 'データが保存される' do
@@ -121,5 +128,4 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
-  
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :labelling do
-    task { 'task' }
-    label { 'sample0' }
+    task
+    label
   end
 end
