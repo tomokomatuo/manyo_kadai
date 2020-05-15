@@ -5,17 +5,17 @@ RSpec.describe 'タスク管理機能', type: :system do
     @date = Date.new(2019, 9, 29)
     @second_date = Date.new(2019, 10, 10)
     
-    
-    @user = FactoryBot.create(:user)
+
+    @user = FactoryBot.create(:user)   
     @task = FactoryBot.create(:task, user: @user, dead_line: @date, priority: '低', condition: '完了')
     @second_task = FactoryBot.create(:second_task, user: @user, dead_line: @second_date, priority: '高', condition: '未着手')
     visit new_session_path
     fill_in 'session_email', with: 'sample@example.com'
     fill_in 'session_password', with: '00000000'
-    click_on 'commit_new'
-    visit tasks_path
-
-  end
+    click_on 'commit_new' 
+    visit tasks_path    
+    
+   end
   # describe 'タスク一覧画面' do
   #   context 'タスクを作成した場合' do
   #     it '作成済みのタスクが表示される' do
@@ -36,7 +36,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         save_and_open_page
         expect(page).to have_content @date
       end
-    end
+     end
   end
   # describe 'タスク詳細画面' do
   #    context '任意のタスク詳細画面に遷移した場合' do
@@ -47,7 +47,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   #      end
   #    end
   # end
-  describe 'タスク一覧画面' do
+    describe 'タスク一覧画面' do
      context '検索をした場合' do
       it "タイトルで検索できる" do
         fill_in 'title_search', with: 'task'
