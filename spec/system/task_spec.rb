@@ -71,13 +71,13 @@ RSpec.describe 'タスク管理機能', type: :system do
        it 'タスクに紐づいたラベルが表示される' do
        
         page.all(".show_link")[1].click
-        expect(page).to have_content 'sample0'
+        expect(page).to have_content "sample0"
        end
      end
   end
   describe 'タスク編集画面' do
     context '任意のタスク編集画面に遷移した場合' do
-      fit 'タスクが更新できる' do
+      it 'タスクが更新できる' do
         visit edit_task_path(@task)
         fill_in 'title_new', with: 'task'
         fill_in 'content_new', with: 'content'
