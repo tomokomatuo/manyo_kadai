@@ -5,6 +5,8 @@ class Task < ApplicationRecord
   validates :condition, presence: true
   validates :priority, presence: true
   belongs_to :user
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
   
   scope :title_search, -> (search){where('title LIKE ?', "%#{search}%")}
   scope :condition_search, -> (search){where(condition: search)}

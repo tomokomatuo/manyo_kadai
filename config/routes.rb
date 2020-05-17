@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :labels
   get 'sessions/new'
  
   root "users#new"
@@ -11,4 +12,6 @@ Rails.application.routes.draw do
    resources :users
 
   end
+  get '*not_found' => 'application#routing_error'
+  post '*not_found' => 'application#routing_error'
 end

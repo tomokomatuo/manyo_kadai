@@ -3,7 +3,7 @@ class TasksController < ApplicationController
   before_action :check_logged_in
   def index
     @tasks = current_user.tasks.includes(:user).page(params[:page]).per(3)
-    # .order(created_at: :desc)
+    @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
     if params[:sort_expired].present?
     @tasks = @tasks.order(dead_line: :desc).page(params[:page]).per(3)
     else
@@ -66,7 +66,8 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :dead_line, :condition, 
-                                 :priority, :author, :sort_expired, :search, :sort_priority, :page)
+                                 :priority, :author, :sort_expired, :search,
+                                 :sort_priority, :page, { label_ids: [] })
   end
 
   def set_task
